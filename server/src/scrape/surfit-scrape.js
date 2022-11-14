@@ -1,13 +1,10 @@
-// test for surfit web scraping
-
 const puppeteer = require('puppeteer');
 
-let scrape = async () => {
+let surfitScrape = async (tag) => {
     const browser = await puppeteer.launch({headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox']});
     const page = await browser.newPage();
-    await page.goto('https://www.surfit.io/tag/CSS');
-    // page.waitForSelector("h2");
-    console.log('page loaded');
+    await page.goto(`https://www.surfit.io/tag/${tag}`);
+    // console.log('page loaded');
 
     const result = await page.evaluate(() => {
       let data = [];
@@ -19,11 +16,11 @@ let scrape = async () => {
       }
       return data;
     })
-    console.log(result);
+    // console.log(result);
     await browser.close();
-    console.log('browser closed');
+    // console.log('browser closed');
 
     return result;
 }
 
-export default scrape;
+export default surfitScrape;
