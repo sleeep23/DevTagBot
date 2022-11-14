@@ -12,6 +12,10 @@ class App {
     this.application.get('/', (req: express.Request, res: express.Response) => {
       res.send('hello!');
     })
+
+    this.application.get('/test', (req: express.Request, res: express.Response) => {
+      res.send('test');
+    })
   }
 }
 
