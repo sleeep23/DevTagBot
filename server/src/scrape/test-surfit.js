@@ -3,22 +3,24 @@
 const puppeteer = require('puppeteer');
 
 let scrape = async () => {
-    const browser = await puppeteer.launch({headless: false, ignoreDefaultArgs: ['--disable-extensions']});
+    const browser = await puppeteer.launch({headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox']});
     const page = await browser.newPage();
     await page.goto('https://www.surfit.io/tag/CSS');
-    await page.waitFor(1000);
+    console.log('page loaded');
+
     const result = await page.evaluate(() => {
-        let data = []; // Create an empty array that will store our data
-        let elements = document.querySelectorAll("fNXhRg"); // Select all
-        for (let element of elements) { // Loop
-            let content = element.querySelector("h2")
-            let title = content.innerText; // Select the title
-            let link = content.getAttribute('href'); // Select the link
-            data.push({title, link}); // Push an object with the data onto our array
-        }
-        return data; // Return our data array
-    });
+      let data = [];
+      let elements = document.querySelectorAll("h2");
+      for (let element of elements){
+        let title = element.innerText;
+        let link = element.querySelector("a").href;
+        data.push({title, link});
+      }
+      return data;
+    })
+    console.log(result);
+    await browser.close();
+    console.log('browser closed');
 }
 
-// for testing
-console.log(scrape());
+export default scrape;

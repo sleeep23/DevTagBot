@@ -392,7 +392,7 @@ chownr@^1.1.1:
 
 chromium@^3.0.3:
   version "3.0.3"
-  resolved "https://registry.npmjs.org/chromium/-/chromium-3.0.3.tgz"
+  resolved "https://registry.yarnpkg.com/chromium/-/chromium-3.0.3.tgz#0f776510d6b2749d3cf5632383c6e15a97390e9c"
   integrity sha512-TfbzP/3t38Us5xrbb9x87M/y5I/j3jx0zeJhhQ72gjp6dwJuhVP6hBZnBH4wEg7512VVXk9zCfTuPFOdw7bQqg==
   dependencies:
     cachedir "^2.3.0"
@@ -1166,7 +1166,7 @@ puppeteer-core@19.2.2:
 
 puppeteer@*, puppeteer@^19.2.2:
   version "19.2.2"
-  resolved "https://registry.npmjs.org/puppeteer/-/puppeteer-19.2.2.tgz"
+  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-19.2.2.tgz#e6f7bc089ac9bffea78b2f792bf3affd93e16803"
   integrity sha512-m1T5Mog5qu5+dMBptWYTn6pXRdnFbydbVUCthqwbfd8/kOiMlzZBR9ywjX79LpvI1Sj+/z8+FKeIsjnMul8ZYA==
   dependencies:
     cosmiconfig "7.0.1"

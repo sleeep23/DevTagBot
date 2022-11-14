@@ -1,4 +1,5 @@
 import express from 'express';
+import scrape from "./scrape/test-surfit";
 
 class App {
   public application: express.Application;
@@ -14,6 +15,8 @@ class App {
     })
 
     this.application.get('/test', (req: express.Request, res: express.Response) => {
+      const data = scrape()
+      console.log(data);
       res.send('test');
     })
   }
