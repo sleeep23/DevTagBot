@@ -15,9 +15,12 @@ class App {
     })
 
     this.application.get('/test', (req: express.Request, res: express.Response) => {
-      const data = scrape()
-      console.log(data);
-      res.send('test');
+      async function test() {
+        const data = await scrape()
+        await console.log(data);
+        await res.send(data);
+      }
+        test();
     })
   }
 }
