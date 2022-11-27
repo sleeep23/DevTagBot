@@ -13,12 +13,16 @@ interface TagBtnProps {
 const SidebarWrapper = styled.div`
   width: 300px;
   height: 100vh;
-  background-color: #535bf2;
+  background-color: #1a1a1a;
   box-sizing: border-box;
+  padding: 40px;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  align-content: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
   gap: 12px;
 `;
@@ -26,6 +30,7 @@ const SidebarWrapper = styled.div`
 const TagBtnWrapper = styled.button`
   width: fit-content;
   height: fit-content;
+  background-color: #343434;
 `;
 
 function Sidebar({ setTag }: SidebarProps) {
@@ -36,7 +41,15 @@ function Sidebar({ setTag }: SidebarProps) {
       </TagBtnWrapper>
     );
   });
-  return <SidebarWrapper>{tagsSelectable}</SidebarWrapper>;
+  return (
+    <SidebarWrapper>
+      <h2>
+        <p style={{ paddingBottom: "8px", margin: "0" }}>🤔</p>
+        <br /> What articles do you want to find?
+      </h2>
+      {tagsSelectable}
+    </SidebarWrapper>
+  );
 }
 
 export default Sidebar;

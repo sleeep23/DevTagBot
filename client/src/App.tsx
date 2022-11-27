@@ -12,7 +12,7 @@ const Layout = styled.div`
 `;
 
 function App() {
-  const [tag, setTag] = useState<string>("Tag1");
+  const [tag, setTag] = useState<string>("???");
 
   return (
     <Layout>

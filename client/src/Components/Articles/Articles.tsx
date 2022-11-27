@@ -20,7 +20,9 @@ const ArticlesWrapper = styled.div`
 function Articles({ cntTag }: ArticlesProp) {
   return (
     <ArticlesWrapper>
-      <h2>Articles of {cntTag}</h2>
+      <h2 style={{ boxSizing: "border-box", paddingTop: "40px" }}>
+        Articles of {cntTag}
+      </h2>
       <CardList />
     </ArticlesWrapper>
   );
