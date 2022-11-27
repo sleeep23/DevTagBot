@@ -12,7 +12,7 @@ const CardWrapper = styled.div`
   width: 100%;
   height: 320px;
   border-radius: 16px;
-  background-color: white;
+  background-color: unset;
   color: #242424;
   &:hover {
     transform: scale(1.05);
@@ -24,12 +24,14 @@ const CardImgWrapper = styled.div`
   box-sizing: border-box;
   width: 100%;
   height: 180px;
-  background-color: #747bff;
+  background-color: #213547;
   border-radius: 16px 16px 0 0;
 `;
 
 const CardContentWrapper = styled.div`
   box-sizing: border-box;
+  background-color: white;
+  border-radius: 0 0 16px 16px;
   height: 140px;
   padding: 10px;
   display: flex;
@@ -48,10 +50,10 @@ function Card({ title, author }: ContentProps) {
           style={{
             padding: "0px",
             margin: "0px",
-            fontWeight: "bold",
             fontSize: "12px",
             width: "100%",
             textAlign: "center",
+            color: "gray",
           }}
         >
           Written by {author}
