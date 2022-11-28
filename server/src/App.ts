@@ -1,28 +1,30 @@
-import express from 'express';
-import scrape from "./scrape/test-surfit";
+import express from "express";
+import cors from "cors";
+import surfitScrape from "./scrapping/surfit-scrape";
+import { createServer } from "http";
 
-class App {
-  public application: express.Application;
+const app = express();
+const server = createServer(app);
+const router = express.Router();
+const port = 3100;
 
-  constructor() {
-    this.application = express();
-    this.router();
-  }
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "http://127.0.0.1:5173"], // 접근 권한을 부여하는 도메인
+    credentials: true, // 응답 헤더에 Access-Control-Allow-Credentials 추가해줌
+    optionsSuccessStatus: 200, // 응답 상태 200으로 설정
+  })
+);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-  private router(): void {
-    this.application.get('/', (req: express.Request, res: express.Response) => {
-      res.send('hello!');
-    })
+app.get("/tag", (req, res) => {
+  const tag = req.query.tag as string;
+  surfitScrape(tag).then((result) => {
+    res.send(JSON.stringify(result));
+  });
+});
 
-    this.application.get('/test', (req: express.Request, res: express.Response) => {
-      async function test() {
-        const data = await scrape()
-        await console.log(data);
-        await res.send(data);
-      }
-        test();
-    })
-  }
-}
-
-export default App;
+server.listen(port, () => {
+  console.log("Server listening on port " + port);
+});

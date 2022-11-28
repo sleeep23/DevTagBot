@@ -1,11 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
-interface ContentProps {
-  title: string;
-  summary: string;
-  author: string;
-}
+import { ContentProps } from "../../../Types/types";
 
 const CardWrapper = styled.div`
   box-sizing: border-box;
@@ -40,10 +35,21 @@ const CardContentWrapper = styled.div`
   gap: 10px;
 `;
 
-function Card({ title, author }: ContentProps) {
+function Card({ title, author, link, overlayLink }: ContentProps) {
   return (
     <CardWrapper>
-      <CardImgWrapper></CardImgWrapper>
+      <CardImgWrapper>
+        <img
+          src={link}
+          alt="post-thumbnail"
+          style={{
+            width: "100%",
+            height: "100%",
+            borderRadius: "16px 16px 0 0",
+            objectFit: "cover",
+          }}
+        />
+      </CardImgWrapper>
       <CardContentWrapper>
         <h3 style={{ padding: "10px", margin: "0px" }}>{title}</h3>
         <p

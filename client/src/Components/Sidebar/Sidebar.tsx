@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { tags } from "../../Const/Tags";
 
@@ -22,18 +23,20 @@ const SidebarWrapper = styled.div`
   }
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  //align-items: flex-start;
+  //justify-content: center;
   gap: 12px;
 `;
 
 const TagBtnWrapper = styled.button`
   width: fit-content;
   height: fit-content;
-  background-color: #343434;
+  background-color: #444444;
+  color: white;
 `;
 
 function Sidebar({ setTag }: SidebarProps) {
+  const navigate = useNavigate();
   const tagsSelectable = tags.map((tag: string, index: number) => {
     return (
       <TagBtnWrapper key={index} onClick={() => setTag(tag)}>
@@ -43,11 +46,19 @@ function Sidebar({ setTag }: SidebarProps) {
   });
   return (
     <SidebarWrapper>
-      <h2>
+      <h2 style={{ color: "white" }}>
         <p style={{ paddingBottom: "8px", margin: "0" }}>🤔</p>
         <br /> What articles do you want to find?
       </h2>
       {tagsSelectable}
+      <button
+        style={{ fontSize: "16px", color: "white" }}
+        onClick={() => {
+          navigate("/json-visualizer");
+        }}
+      >
+        Here Is The JSON Visualizer!
+      </button>
     </SidebarWrapper>
   );
 }

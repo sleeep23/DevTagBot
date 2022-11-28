@@ -68,7 +68,7 @@ export const articles: Array<ArticleType> = [
     content: "Article4 is awesome!",
   },
   {
-    id: 11,
+    id: 12,
     title: "Article4",
     author: "Kevin",
     content: "Article4 is awesome!",
