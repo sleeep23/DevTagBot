@@ -8,7 +8,7 @@ const ContentWrapper = styled.div`
   background-color: #242424;
   padding: 40px;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
