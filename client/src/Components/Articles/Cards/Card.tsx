@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ContentProps } from "../../../Types/types";
+import { ContentProps } from "../../../Types/ContentType";
 
 const CardWrapper = styled.div`
   box-sizing: border-box;

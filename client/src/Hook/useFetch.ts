@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ContentProps } from "../Types/types";
+import { ContentProps } from "../Types/ContentType";
 
 export default function useFetch(url: string) {
   const [data, setData] = useState<Array<ContentProps>>([]);
