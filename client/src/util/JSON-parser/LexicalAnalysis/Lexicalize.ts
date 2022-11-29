@@ -3,11 +3,11 @@ import {arrayDepthErrorMessage, objectDepthErrorMessage, quoteErrorMessage} from
 
 export let parserDepth: number[] = [];
 
-interface obj {
+export default interface obj {
   type: string;
   depth: number;
   value?: string | number | boolean | null;
-  child?: object[];
+  child?: obj[];
 }
 
 export function Lexicalize(
