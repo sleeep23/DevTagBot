@@ -46,7 +46,7 @@ export function Lexicalize(
           object.value = element;
           break;
         case "string":
-          const currentTokenType: string = TOKEN_KEYWORDS[element.toString()[0]] || "real_string"; // '"'이랑 문자열이랑 구분해야 될 듯?
+          const currentTokenType: string = TOKEN_KEYWORDS[element.toString()[0]];
           object.type = currentTokenType;
           object.value = element;
           switch(currentTokenType) {
@@ -72,14 +72,14 @@ export function Lexicalize(
             case "string":
               stringBalance = !stringBalance;
               break;
-            case"real_string":
-              break;
           }
       }
       parserDepth.push(object.depth);
       return object;
     }
   );
+  if (arrayDepth > 0) throw arrayDepthErrorMessage();
+  if (objectDepth > 0) throw objectDepthErrorMessage();
   // "이 짝수 개인지 확인, 열리고 닫히는 것 까지 확인 X
   if (!stringBalance) throw quoteErrorMessage();
   return result;

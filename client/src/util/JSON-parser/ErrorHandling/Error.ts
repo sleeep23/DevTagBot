@@ -8,11 +8,11 @@ export const multipleDecimalPointsErrorMessage = (points: number) => {
 
 
 // errors for Lexcialize.ts
-export const arrayDepthErrorMessage = (index: number) => {
+export const arrayDepthErrorMessage = (index?: number) => {
   return new SyntaxError("array depth error: " + index);
 };
 
-export const objectDepthErrorMessage = (index: number) => {
+export const objectDepthErrorMessage = (index?: number) => {
   return new SyntaxError("object depth error: " + index);
 };
 
