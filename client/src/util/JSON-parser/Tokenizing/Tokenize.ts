@@ -1,48 +1,100 @@
-import { SEPARATORS } from "../Characters";
+import { SEPARATOR } from "../Characters";
 import {
-  createFalseToken,
-  createNullToken,
-  createNumberToken,
-  createStringToken,
-  createTrueToken,
-} from "./CreateTokens";
-import { syntaxErrorMessage } from "../ErrorHandling/Error";
+  multipleDecimalPointsErrorMessage,
+  syntaxErrorMessage,
+} from "../ErrorHandling/Error";
 
 export default function Tokenize(
   inputString: string
 ): Array<boolean | string | number | null> {
   const result: Array<boolean | string | number | null> = [];
   let cntIndex = 0;
+
+  const createNullToken = (): null => {
+    if (inputString[++cntIndex] !== "u") throw syntaxErrorMessage(cntIndex);
+    if (inputString[++cntIndex] !== "l") throw syntaxErrorMessage(cntIndex);
+    if (inputString[++cntIndex] !== "l") throw syntaxErrorMessage(cntIndex);
+    ++cntIndex;
+    return null;
+  };
+
+  const createTrueToken = (): boolean => {
+    if (inputString[++cntIndex] !== "r") throw syntaxErrorMessage(cntIndex);
+    if (inputString[++cntIndex] !== "u") throw syntaxErrorMessage(cntIndex);
+    if (inputString[++cntIndex] !== "e") throw syntaxErrorMessage(cntIndex);
+    ++cntIndex;
+    return true;
+  };
+
+  const createFalseToken = (): boolean => {
+    if (inputString[++cntIndex] !== "a") throw syntaxErrorMessage(cntIndex);
+    if (inputString[++cntIndex] !== "l") throw syntaxErrorMessage(cntIndex);
+    if (inputString[++cntIndex] !== "s") throw syntaxErrorMessage(cntIndex);
+    if (inputString[++cntIndex] !== "e") throw syntaxErrorMessage(cntIndex);
+    ++cntIndex;
+    return false;
+  };
+
+  const createStringToken = (quotation: string): string => {
+    const start = cntIndex;
+    if (cntIndex === inputString.length - 1) {
+      throw syntaxErrorMessage(cntIndex);
+    }
+    while (
+      inputString[++cntIndex] !== quotation &&
+      cntIndex !== inputString.length - 1
+    ) {
+      if (inputString[cntIndex] === "\\") {
+        cntIndex++;
+      }
+    }
+    return inputString.substring(start, ++cntIndex);
+  };
+
+  const createNumberToken = (): number => {
+    const start = cntIndex;
+    if (inputString[cntIndex] === "-") cntIndex++;
+    let count = 0;
+    while (cntIndex) {
+      if (/^[+-]?\d*(\.?\d*)?$/.test(inputString[cntIndex])) {
+        if (/\./.test(inputString[cntIndex])) {
+          count++;
+        }
+        cntIndex++;
+      } else {
+        break;
+      }
+    }
+    if (count > 1) throw multipleDecimalPointsErrorMessage(cntIndex);
+
+    return Number(inputString.substring(start, cntIndex));
+  };
+
   while (cntIndex < inputString.length) {
     if (inputString[cntIndex] === " ") {
       cntIndex++;
     }
-    if (SEPARATORS.has(inputString[cntIndex])) {
-      result.push(inputString);
+    if (SEPARATOR.includes(inputString[cntIndex])) {
+      result.push(inputString[cntIndex++]);
     } else {
       switch (inputString[cntIndex]) {
         case "n":
-          result.push(createNullToken(inputString, cntIndex));
-          cntIndex += 4;
+          result.push(createNullToken());
           continue;
         case "t":
-          result.push(createTrueToken(inputString, cntIndex));
-          cntIndex += 4;
+          result.push(createTrueToken());
           continue;
         case "f":
-          result.push(createFalseToken(inputString, cntIndex));
-          cntIndex += 5;
+          result.push(createFalseToken());
           continue;
         case '"':
         case "'":
-          const stringToken = createStringToken(inputString, cntIndex);
-          result.push(stringToken);
-          cntIndex += stringToken.length;
+          result.push(createStringToken(inputString[cntIndex]));
+          continue;
       }
       if (/^[+-]?\d*(\.?\d*)?$/.test(inputString[cntIndex])) {
-        let numberToken = createNumberToken(inputString, cntIndex);
-        result.push(numberToken);
-        cntIndex += numberToken.toString().length;
+        result.push(createNumberToken());
+        continue;
       }
       throw syntaxErrorMessage(cntIndex);
     }

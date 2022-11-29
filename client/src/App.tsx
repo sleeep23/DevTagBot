@@ -4,6 +4,7 @@ import Articles from "./Components/Articles/Articles";
 import styled from "styled-components";
 import { Route, Routes } from "react-router-dom";
 import JsonVisualizer from "./Components/json-visualizer/JsonVisualizer";
+import Test from "./Components/Test/Test";
 
 const Layout = styled.div`
   box-sizing: border-box;
@@ -18,6 +19,7 @@ export function RoutePaths() {
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/json-visualizer" element={<JsonVisualizer />} />
+      <Route path="/test" element={<Test />} />
     </Routes>
   );
 }

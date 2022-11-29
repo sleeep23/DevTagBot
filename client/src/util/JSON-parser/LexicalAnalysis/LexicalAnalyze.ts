@@ -1,23 +1,26 @@
 import { TOKEN_KEYWORDS } from "../Keywords";
-import {arrayDepthErrorMessage, objectDepthErrorMessage, quoteErrorMessage} from "../ErrorHandling/Error";
+import {
+  arrayDepthErrorMessage,
+  objectDepthErrorMessage,
+  quoteErrorMessage,
+} from "../ErrorHandling/Error";
 
 export let parserDepth: number[] = [];
 
-interface obj {
+export interface obj {
   type: string;
   depth: number;
   value?: string | number | boolean | null;
-  child?: object[];
+  child?: obj[];
 }
 
-export function Lexicalize(
+export default function LexicalAnalyze(
   tokenizedString: Array<boolean | string | number | null>
 ) {
   let arrayDepth = 0;
   let objectDepth = 0;
   let stringBalance = true;
   const result = tokenizedString.map(
-
     (element: boolean | string | number | null, idx: number) => {
       // 괄호의 짝이 안 맞을 때 error
       // 아니면 return 하기 전에 0인지 검사해도 됨
@@ -26,7 +29,7 @@ export function Lexicalize(
 
       const object: obj = {
         type: "",
-        depth: arrayDepth,
+        depth: arrayDepth !== 0 ? arrayDepth : objectDepth,
         value: undefined,
         child: undefined,
       };
@@ -46,13 +49,14 @@ export function Lexicalize(
           object.value = element;
           break;
         case "string":
-          const currentTokenType: string = TOKEN_KEYWORDS[element.toString()[0]];
+          const currentTokenType: string =
+            TOKEN_KEYWORDS[element.toString()[0]];
           object.type = currentTokenType;
           object.value = element;
-          switch(currentTokenType) {
+          switch (currentTokenType) {
             case "open_array":
               object.child = [];
-              if (arrayDepth > 0) object.value = "arrayObject" ;
+              if (arrayDepth > 0) object.value = "arrayObject";
               else object.value = undefined;
               arrayDepth++;
               break;
@@ -81,6 +85,6 @@ export function Lexicalize(
   if (arrayDepth > 0) throw arrayDepthErrorMessage();
   if (objectDepth > 0) throw objectDepthErrorMessage();
   // "이 짝수 개인지 확인, 열리고 닫히는 것 까지 확인 X
-  if (!stringBalance) throw quoteErrorMessage();
+  // if (!stringBalance) throw quoteErrorMessage();
   return result;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Card from "./Card";
-import { ContentProps } from "../../../Types/types";
+import { ContentProps } from "../../../Types/ContentType";
 import useFetch from "../../../Hook/useFetch";
 
 const CardsGridContainer = styled.div`
