@@ -11,3 +11,9 @@ export interface ContentProps {
   author: string;
   overlayLink: string;
 }
+
+export interface ObjectProps {
+  type: string;
+  value?: string;
+  children?: Array<Object>;
+}

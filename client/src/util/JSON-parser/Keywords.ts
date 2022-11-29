@@ -1,6 +1,6 @@
 export const TOKEN_KEYWORDS = {
-  "[": "array",
-  "{": "object",
+  "[": "open_array",
+  "{": "open_object",
   ",": "separator",
   ":": "colon",
   '"': "string",

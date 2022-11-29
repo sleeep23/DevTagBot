@@ -33,9 +33,9 @@ function JsonVisualizer() {
         <h1 style={{ textAlign: "center" }}>This is Json visualizer!</h1>
         <p style={{ textAlign: "center" }}>
           Crawling with Puppeteer is difficult to guarantee that complete
-          information is retrieved in time for various reasons, such as the
+          information will be retrieved in time for various reasons, such as the
           current network status, the network status of the site to be crawled,
-          and browser caching blocking of crawling, so this part was added.
+          and browser caching's blocking of crawling, so this part was added.
         </p>
       </ContentHeader>
       <JsonIO />
