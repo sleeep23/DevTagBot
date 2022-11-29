@@ -33,7 +33,7 @@ const JsonOutputContainer = styled.div`
   box-sizing: border-box;
   padding: 30px;
   background-color: #1a1a1a;
-  width: 600px;
+  width: 400px;
   height: 520px;
   border: unset;
   border-radius: 16px;
@@ -108,6 +108,7 @@ function JsonIO() {
           padding: "8px",
           margin: "0",
           color: "white",
+          backgroundColor: "#1a1a1a",
         }}
         onClick={onClickHandler}
       >

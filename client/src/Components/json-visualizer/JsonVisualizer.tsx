@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 const ContentWrapper = styled.div`
   box-sizing: border-box;
+  background-color: #242424;
   padding: 40px;
   width: 100%;
   height: fit-content;
@@ -30,8 +31,10 @@ function JsonVisualizer() {
     <ContentWrapper>
       <Link to="/">Back to Main Page</Link>
       <ContentHeader>
-        <h1 style={{ textAlign: "center" }}>This is Json visualizer!</h1>
-        <p style={{ textAlign: "center" }}>
+        <h1 style={{ textAlign: "center", color: "white" }}>
+          This is Json visualizer!
+        </h1>
+        <p style={{ textAlign: "center", color: "white" }}>
           Crawling with Puppeteer is difficult to guarantee that complete
           information will be retrieved in time for various reasons, such as the
           current network status, the network status of the site to be crawled,
