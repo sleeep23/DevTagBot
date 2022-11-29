@@ -35,6 +35,12 @@ const TagBtnWrapper = styled.button`
   color: white;
 `;
 
+const JsonVisualizerBtn = styled.button`
+  background-color: #1a1a1a;
+  font-size: 16px;
+  color: white;
+`;
+
 function Sidebar({ setTag }: SidebarProps) {
   const navigate = useNavigate();
   const tagsSelectable = tags.map((tag: string, index: number) => {
@@ -51,14 +57,13 @@ function Sidebar({ setTag }: SidebarProps) {
         <br /> What articles do you want to find?
       </h2>
       {tagsSelectable}
-      <button
-        style={{ fontSize: "16px", color: "white" }}
+      <JsonVisualizerBtn
         onClick={() => {
           navigate("/json-visualizer");
         }}
       >
         Here Is The JSON Visualizer!
-      </button>
+      </JsonVisualizerBtn>
     </SidebarWrapper>
   );
 }
