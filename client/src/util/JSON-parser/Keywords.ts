@@ -1,4 +1,4 @@
-export const TOKEN_KEYWORDS = {
+export const TOKEN_KEYWORDS: any = {
   "[": "open_array",
   "{": "open_object",
   ",": "separator",
