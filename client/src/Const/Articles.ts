@@ -1,70 +1,56 @@
-import { ArticleType } from "../Types/types";
+import { ArrayProps } from "../Types/TokenTypes";
 
-export const articles: Array<ArticleType> = [
-  {
-    id: 1,
-    title: "Article1",
-    author: "John",
-    content: "Article1 is awesome!",
-  },
-  {
-    id: 2,
-    title: "Article2",
-    author: "Ben",
-    content: "Article2 is awesome!",
-  },
-  {
-    id: 3,
-    title: "Article3",
-    author: "Bob",
-    content: "Article3 is awesome!",
-  },
-  {
-    id: 4,
-    title: "Article4",
-    author: "Kevin",
-    content: "Article4 is awesome!",
-  },
-  {
-    id: 5,
-    title: "Article4",
-    author: "Kevin",
-    content: "Article4 is awesome!",
-  },
-  {
-    id: 6,
-    title: "Article4",
-    author: "Kevin",
-    content: "Article4 is awesome!",
-  },
-  {
-    id: 7,
-    title: "Article4",
-    author: "Kevin",
-    content: "Article4 is awesome!",
-  },
-  {
-    id: 8,
-    title: "Article4",
-    author: "Kevin",
-    content: "Article4 is awesome!",
-  },
-  {
-    id: 9,
-    title: "Article4",
-    author: "Kevin",
-    content: "Article4 is awesome!",
-  },
-  {
-    id: 10,
-    title: "Article4",
-    author: "Kevin",
-    content: "Article4 is awesome!",
-  },
-  {
-    id: 11,
-    title: "Article4",
-    author: "Kevin",
-    content: "Article4 is awesome!",
-  },
-];
+export const Articles: ArrayProps = {
+  type: "array",
+  children: [
+    {
+      type: "object",
+      children: [
+        {
+          type: "objectKeyValue",
+          key: {
+            type: "string",
+            value: "title",
+          },
+          value: {
+            type: "string",
+            value: "Title 1",
+          },
+        },
+        {
+          type: "objectKeyValue",
+          key: {
+            type: "string",
+            value: "link",
+          },
+          value: {
+            type: "string",
+            value: "Link 1",
+          },
+        },
+        {
+          type: "objectKeyValue",
+          key: {
+            type: "string",
+            value: "author",
+          },
+          value: {
+            type: "string",
+            value: "Author 1",
+          },
+        },
+        {
+          type: "objectKeyValue",
+          key: {
+            type: "string",
+            value: "overlayLink",
+          },
+          value: {
+            type: "string",
+            value: "OverlayLink 1",
+          },
+        },
+      ],
+    },
+  ],
+};

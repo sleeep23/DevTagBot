@@ -8,6 +8,7 @@ interface ArticlesProp {
 
 const ArticlesWrapper = styled.div`
   width: calc(100% - 300px);
+  background-color: #242424;
   height: 100vh;
   box-sizing: border-box;
   display: flex;
@@ -20,8 +21,12 @@ const ArticlesWrapper = styled.div`
 function Articles({ cntTag }: ArticlesProp) {
   return (
     <ArticlesWrapper>
-      <h2>Articles of {cntTag}</h2>
-      <CardList />
+      <h1
+        style={{ boxSizing: "border-box", paddingTop: "40px", color: "white" }}
+      >
+        Articles of {cntTag}
+      </h1>
+      <CardList cntTag={cntTag} />
     </ArticlesWrapper>
   );
 }

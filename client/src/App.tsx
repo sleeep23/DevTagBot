@@ -2,6 +2,9 @@ import { useState } from "react";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Articles from "./Components/Articles/Articles";
 import styled from "styled-components";
+import { Route, Routes } from "react-router-dom";
+import JsonVisualizer from "./Components/json-visualizer/JsonVisualizer";
+import Test from "./Components/Test/Test";
 
 const Layout = styled.div`
   box-sizing: border-box;
@@ -11,9 +14,18 @@ const Layout = styled.div`
   justify-content: center;
 `;
 
-function App() {
-  const [tag, setTag] = useState<string>("Tag1");
+export function RoutePaths() {
+  return (
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="/json-visualizer" element={<JsonVisualizer />} />
+      <Route path="/test" element={<Test />} />
+    </Routes>
+  );
+}
 
+export function App() {
+  const [tag, setTag] = useState<string>("HTML");
   return (
     <Layout>
       <Sidebar setTag={setTag} />
@@ -21,5 +33,3 @@ function App() {
     </Layout>
   );
 }
-
-export default App;
