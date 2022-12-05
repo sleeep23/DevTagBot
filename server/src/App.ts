@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import surfitScrape from "./scrapping/surfit-scrape";
 import { createServer } from "http";
+import { parser } from "./jsonParser/parser";
 
 const app = express();
 const server = createServer(app);
@@ -18,11 +19,13 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/tag", (req, res) => {
-  const tag = req.query.tag as string;
-  surfitScrape(tag).then((result) => {
-    res.send(JSON.stringify(result));
-  });
+app.post("/", (req, res) => {
+  let input: string = req.body.input;
+  res.send(parser.feed(input));
+  // const tag = req.query.tag as string;
+  // surfitScrape(tag).then((result) => {
+  //   res.send(JSON.stringify(result));
+  // });
 });
 
 server.listen(port, () => {
