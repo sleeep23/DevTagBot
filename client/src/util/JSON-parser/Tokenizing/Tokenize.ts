@@ -11,6 +11,7 @@ export default function Tokenize(
   let cntIndex = 0;
 
   const createNullToken = (): null => {
+    // 각 문자별로 에러 메세지 명시
     if (inputString[++cntIndex] !== "u") throw syntaxErrorMessage(cntIndex);
     if (inputString[++cntIndex] !== "l") throw syntaxErrorMessage(cntIndex);
     if (inputString[++cntIndex] !== "l") throw syntaxErrorMessage(cntIndex);
@@ -19,6 +20,7 @@ export default function Tokenize(
   };
 
   const createTrueToken = (): boolean => {
+    // 각 문자별로 에러 메세지 명시
     if (inputString[++cntIndex] !== "r") throw syntaxErrorMessage(cntIndex);
     if (inputString[++cntIndex] !== "u") throw syntaxErrorMessage(cntIndex);
     if (inputString[++cntIndex] !== "e") throw syntaxErrorMessage(cntIndex);
@@ -27,6 +29,7 @@ export default function Tokenize(
   };
 
   const createFalseToken = (): boolean => {
+    // 각 문자별로 에러 메세지 명시
     if (inputString[++cntIndex] !== "a") throw syntaxErrorMessage(cntIndex);
     if (inputString[++cntIndex] !== "l") throw syntaxErrorMessage(cntIndex);
     if (inputString[++cntIndex] !== "s") throw syntaxErrorMessage(cntIndex);
@@ -38,6 +41,7 @@ export default function Tokenize(
   const createStringToken = (quotation: string): string => {
     const start = cntIndex;
     if (cntIndex === inputString.length - 1) {
+      // 문자열 끝 오류라고 명시
       throw syntaxErrorMessage(cntIndex);
     }
     while (
@@ -62,6 +66,7 @@ export default function Tokenize(
         }
         cntIndex++;
       } else {
+        // 여기에 정규식 표현 에러 메세지 명시
         break;
       }
     }

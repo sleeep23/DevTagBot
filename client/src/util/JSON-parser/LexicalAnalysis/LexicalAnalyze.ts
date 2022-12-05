@@ -1,11 +1,25 @@
 import { TOKEN_KEYWORDS } from "../Keywords";
 import {
   arrayDepthErrorMessage,
+  colonKeyErrorMessage,
+  colonValueErrorMessage,
   objectDepthErrorMessage,
   quoteErrorMessage,
+  separatorErrorMessage,
 } from "../ErrorHandling/Error";
 
 export let parserDepth: number[] = [];
+
+const notValue: Array<string> = ["}", "]", ",", ":"];
+const notBeforeColon: Array<string> = ["{", "[", ",", ":"];
+const notAfterColon: Array<string | boolean> = [
+  true,
+  false,
+  "}",
+  "]",
+  ",",
+  ":",
+];
 
 export interface obj {
   type: string;
@@ -71,7 +85,23 @@ export default function LexicalAnalyze(
               objectDepth--;
               break;
             case "separator":
+              if (
+                notBeforeColon.includes(tokenizedString[idx - 1]!.toString())
+              ) {
+                throw separatorErrorMessage(idx);
+              }
+              if (
+                notAfterColon.includes(tokenizedString[idx + 1]!.toString())
+              ) {
+                throw separatorErrorMessage(idx);
+              }
             case "colon":
+              if (typeof tokenizedString[idx - 1] !== "string") {
+                throw colonKeyErrorMessage(idx);
+              }
+              if (notValue.includes(tokenizedString[idx + 1]!.toString())) {
+                throw colonValueErrorMessage(idx);
+              }
               break;
             case "string":
               stringBalance = !stringBalance;

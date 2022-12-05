@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import ReactJson from "react-json-view";
 import Tokenize from "../../util/JSON-parser/Tokenizing/Tokenize";
 import { JsonInput } from "./JsonInput";
 import { JsonOutput } from "./JsonOutput";
 import { Parse } from "../../util/JSON-parser/Parsing/Parse";
 import LexicalAnalyze from "../../util/JSON-parser/LexicalAnalysis/LexicalAnalyze";
+import axios from "axios";
 
 const JsonIOWrapper = styled.div`
   box-sizing: border-box;
@@ -20,20 +20,45 @@ const JsonIOWrapper = styled.div`
 `;
 
 function JsonIO() {
-  const [inputText, setInputText] = useState<string>("");
+  const [inputText, setInputText] = useState<string | undefined>();
   const [json, setJson] = useState<Object>({});
   const [isError, setIsError] = useState<boolean>(false);
   const [errorName, setErrorName] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   // useEffect(() => {}, [inputText]);
-
-  const onClickHandler = useCallback(() => {
+  console.log(inputText);
+  const onClickHandler = async () => {
     try {
-      setJson(Parse(LexicalAnalyze(Tokenize(inputText))) as Object);
-      setIsError(false);
-      console.log("Tokenized!");
-      // console.log(jsonText);
+      if (inputText) {
+        LexicalAnalyze(Tokenize(inputText));
+        let input_data = Tokenize(inputText).join("");
+        console.log(input_data);
+        await axios
+          .post("http://localhost:3100/", {
+            input: input_data,
+          })
+          .then((response) => {
+            if (response.data.toString() === "[]") {
+              if (inputText === "[]") {
+                setJson(response.data);
+              } else {
+                setIsError(true);
+                setErrorName("Syntax Error");
+                setErrorMessage("");
+              }
+            }
+            setJson(response.data);
+          })
+          .catch((error) => {
+            setIsError(true);
+            // setErrorMessage(error.request);
+            console.log("error at : " + error.response.data);
+          });
+        // setJson(jsonParser.feed(inputText));
+        setIsError(false);
+        // console.log(jsonText);
+      }
     } catch (err: unknown) {
       setIsError(true);
       if (err instanceof SyntaxError) {
@@ -44,7 +69,7 @@ function JsonIO() {
         setErrorMessage(err.message);
       }
     }
-  }, [inputText]);
+  };
 
   return (
     <JsonIOWrapper>

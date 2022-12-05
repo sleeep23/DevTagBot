@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { ContentProps } from "../Types/ContentType";
+import LexicalAnalyze from "../util/JSON-parser/LexicalAnalysis/LexicalAnalyze";
+import Tokenize from "../util/JSON-parser/Tokenizing/Tokenize";
 
 export default function useFetch(url: string) {
   const [data, setData] = useState<Array<ContentProps>>([]);
@@ -16,7 +18,12 @@ export default function useFetch(url: string) {
         return response.text();
       })
       .then((response: string) => {
-        setData(JSON.parse(response));
+        try {
+          LexicalAnalyze(Tokenize(response));
+          setData(JSON.parse(response));
+        } catch (e: any) {
+          console.log("Error : " + e.response.data);
+        }
       });
   }, [url]);
   return data;
