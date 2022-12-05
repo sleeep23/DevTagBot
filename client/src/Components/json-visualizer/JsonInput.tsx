@@ -19,7 +19,7 @@ const JsonInputContainer = styled.textarea`
 export function JsonInput({
   setInputText,
 }: {
-  setInputText: React.Dispatch<React.SetStateAction<string>>;
+  setInputText: React.Dispatch<React.SetStateAction<string | undefined>>;
 }) {
   const handleMessageChange = (e: any) => {
     setInputText(e.target.value);

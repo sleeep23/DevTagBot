@@ -15,7 +15,7 @@ const JsonOutputContainer = styled.div`
 `;
 
 export function JsonOutput({ json, isError, errorName, errorMessage }: any) {
-  console.log(json);
+  console.log("Server sent json is" + JSON.stringify(json));
   return (
     <JsonOutputContainer>
       {isError ? (

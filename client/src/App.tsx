@@ -19,13 +19,12 @@ export function RoutePaths() {
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/json-visualizer" element={<JsonVisualizer />} />
-      <Route path="/test" element={<Test />} />
     </Routes>
   );
 }
 
 export function App() {
-  const [tag, setTag] = useState<string>("HTML");
+  const [tag, setTag] = useState<string>("");
   return (
     <Layout>
       <Sidebar setTag={setTag} />
