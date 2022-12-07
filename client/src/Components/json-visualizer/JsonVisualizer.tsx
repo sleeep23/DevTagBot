@@ -32,7 +32,7 @@ function JsonVisualizer() {
       <Link to="/">Back to Main Page</Link>
       <ContentHeader>
         <h1 style={{ textAlign: "center", color: "white" }}>
-          This is Json visualizer!
+          This is JSON Visualizer!
         </h1>
         <p style={{ textAlign: "center", color: "white" }}>
           Crawling with Puppeteer is difficult to guarantee that complete

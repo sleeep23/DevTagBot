@@ -47,6 +47,9 @@ function JsonIO() {
                 setErrorName("Syntax Error");
                 setErrorMessage("");
               }
+            } else if (response.data === null) {
+              setErrorName("Syntax Error");
+              setErrorMessage("Parse error");
             }
             setJson(response.data);
           })
