@@ -79,8 +79,8 @@ If you are having some problems on finding codes or execution, please email us :
 **Tokenizer**
 
 - unexpected token error
-- check spells of words | ex) false, null, true …
-- filter words which are not tokens
+	- check spells of words | ex) false, null, true …
+	- filter words which are not tokens
 
 ```json
 {"isTrue":falseee}
@@ -95,15 +95,15 @@ If you are having some problems on finding codes or execution, please email us :
 ```
 
 - multiple decimal points error
-- number should contain only one decimal points
+	- number should contain only one decimal points
 
 ```json
 {"number": 33..3}
 ```
 
 - **limitation
--** tokenizer cannot tokenize **natural number e
--** tokenizer cannot tokenize **line break**
+	-** tokenizer cannot tokenize **natural number e
+	-** tokenizer cannot tokenize **line break**
 
 ```json
 {"number": 123.456e-789}
@@ -118,14 +118,14 @@ If you are having some problems on finding codes or execution, please email us :
 **Lexical Analyzer**
 
 - array, object depth error
-- check balance of arrays and objects
+	- check balance of arrays and objects
 
 ```json
 {"array": [1,2,[3]}
 ```
 
 - colon key, value error
-- check pair of key and value
+	- check pair of key and value
 
 ```json
 {"key":}"value"}
@@ -136,15 +136,15 @@ If you are having some problems on finding codes or execution, please email us :
 ```
 
 - separator error
-- check if separator is between elements (using first and follow of separator)
+	- check if separator is between elements (using first and follow of separator)
 
 ```json
 {"key":"value",}
 ```
 
 - **limitation
--** lexical analyzer cannot check **balance of string quote
--** only use first and follow of **colon and separator**
+	-** lexical analyzer cannot check **balance of string quote
+	-** only use first and follow of **colon and separator**
 
 ```json
 {"key":"value}
