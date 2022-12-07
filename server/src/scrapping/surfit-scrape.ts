@@ -25,7 +25,7 @@ const surfitScrape = async (tag: string) => {
     const temp_links = await document.querySelectorAll(
       ".ct-item .article-thumbnail-inner img"
     );
-    await sleep(2);
+    await sleep(1);
     await temp_links.forEach((item: Element) => {
       if (item instanceof HTMLImageElement) links.push(item.src);
     });
@@ -34,14 +34,14 @@ const surfitScrape = async (tag: string) => {
     const temp_authors = await document.querySelectorAll(
       ".ct-item .author-name"
     );
-    await sleep(2);
+    await sleep(1);
     await temp_authors.forEach((item: Element) => {
       if (item instanceof HTMLAnchorElement) authors.push(item.innerText);
     });
 
     // Getting titles
     const temp_titles = await document.querySelectorAll(".ct-item .title");
-    await sleep(2);
+    await sleep(1);
     temp_titles.forEach((item: Element) => {
       if (item instanceof HTMLAnchorElement) titles.push(item.innerText);
     });

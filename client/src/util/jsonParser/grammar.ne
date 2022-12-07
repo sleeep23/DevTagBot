@@ -20,7 +20,7 @@ let lexer = moo.compile({
 %}
 
 @{%
-function getPair(kv, output) {
+function extractPair(kv, output) {
     if(kv[0]) { output[kv[0]] = kv[1]; }
 }
 %}
@@ -30,16 +30,16 @@ function getPair(kv, output) {
 json -> _ (object | array) _ {% function(d) { return d[1][0]; } %}
 
 object -> "{" _ "}" {% function(d) { return {}; } %}
-    | "{" _ pair (_ "," _ pair):* _ "getObject %}
+    | "{" _ pair (_ "," _ pair):* _ "}" {% extractObject %}
 
 @{%
-function getObject(d) {
+function extractObject(d) {
     let output = {};
 
-    getPair(d[2], output);
+    extractPair(d[2], output);
 
     for (let i in d[3]) {
-        getPair(d[3][i][3], output);
+        extractPair(d[3][i][3], output);
     }
 
     return output;
@@ -47,10 +47,10 @@ function getObject(d) {
 %}
 
 array -> "[" _ "]" {% function(d) { return []; } %}
-    | "[" _ value (_ "," _ value):* _ "]" {% getArray %}
+    | "[" _ value (_ "," _ value):* _ "]" {% extractArray %}
 
 @{%
-function getArray(d) {
+function extractArray(d) {
     let output = [d[2]];
 
     for (let i in d[3]) {

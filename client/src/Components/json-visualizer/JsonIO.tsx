@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import Tokenize from "../../util/JSON-parser/Tokenizing/Tokenize";
+import Tokenize from "../../util/JSON-validating/Tokenizing/Tokenize";
 import { JsonInput } from "./JsonInput";
 import { JsonOutput } from "./JsonOutput";
-import { Parse } from "../../util/JSON-parser/Parsing/Parse";
-import LexicalAnalyze from "../../util/JSON-parser/LexicalAnalysis/LexicalAnalyze";
+import { Parse } from "../../util/JSON-validating/Parsing/Parse";
+import LexicalAnalyze from "../../util/JSON-validating/LexicalAnalysis/LexicalAnalyze";
 import axios from "axios";
 
 const JsonIOWrapper = styled.div`

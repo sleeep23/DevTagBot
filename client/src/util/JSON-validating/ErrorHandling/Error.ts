@@ -29,7 +29,7 @@ export const arrayDepthErrorMessage = (index?: number) => {
 
 export const objectDepthErrorMessage = (index?: number) => {
   if (typeof index !== "number") {
-    return new BalanceError(`💁‍♀️ Object pair "{" doesn't matches `);
+    return new BalanceError(`💁‍♀️ Object pair doesn't matches `);
   }
   return new BalanceError(
     `💁  Array pair "}" doesn't matches at index: ` + index
