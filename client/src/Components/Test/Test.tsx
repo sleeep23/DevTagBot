@@ -1,5 +1,5 @@
 import React from "react";
-import Tokenize from "../../util/JSON-parser/Tokenizing/Tokenize";
+import Tokenize from "../../util/JSON-validating/Tokenizing/Tokenize";
 
 function Test() {
   const onChangeHandler = (event: any) => {
