@@ -29,7 +29,6 @@ function CardList({ cntTag }: { cntTag: string }) {
   const data: Array<ContentProps> = useFetch(
     `http://localhost:3100/tag?tag=${cntTag}`
   );
-  console.log(data);
   const cards = data.map((article: ContentProps, idx: number) => (
     <Card
       key={idx}

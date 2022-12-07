@@ -6,13 +6,15 @@ import {
   objectDepthErrorMessage,
   quoteErrorMessage,
   separatorErrorMessage,
+  syntaxErrorMessage,
 } from "../ErrorHandling/Error";
 
 export let parserDepth: number[] = [];
 
+const commaAndColon: Array<string> = [",", ":"];
 const notValue: Array<string> = ["}", "]", ",", ":"];
-const notBeforeColon: Array<string> = ["{", "[", ",", ":"];
-const notAfterColon: Array<string | boolean> = [
+const notBeforeSeparator: Array<string> = ["{", "[", ",", ":"];
+const notAfterSeparator: Array<string | boolean> = [
   true,
   false,
   "}",
@@ -47,8 +49,6 @@ export default function LexicalAnalyze(
         value: undefined,
         child: undefined,
       };
-
-      // const currentTokenType;
       switch (typeof element) {
         case "number":
           object.type = "number";
@@ -69,32 +69,55 @@ export default function LexicalAnalyze(
           object.value = element;
           switch (currentTokenType) {
             case "open_array":
+              if (
+                commaAndColon.includes(tokenizedString[idx + 1]!.toString())
+              ) {
+                throw separatorErrorMessage(idx);
+              }
               object.child = [];
               if (arrayDepth > 0) object.value = "arrayObject";
               else object.value = undefined;
               arrayDepth++;
               break;
             case "close_array":
+              if (
+                commaAndColon.includes(tokenizedString[idx - 1]!.toString())
+              ) {
+                throw separatorErrorMessage(idx);
+              }
               arrayDepth--;
               break;
             case "open_object":
+              if (
+                commaAndColon.includes(tokenizedString[idx + 1]!.toString())
+              ) {
+                throw separatorErrorMessage(idx);
+              }
               object.child = [];
               objectDepth++;
               break;
             case "close_object":
+              if (
+                commaAndColon.includes(tokenizedString[idx - 1]!.toString())
+              ) {
+                throw separatorErrorMessage(idx);
+              }
               objectDepth--;
               break;
             case "separator":
               if (
-                notBeforeColon.includes(tokenizedString[idx - 1]!.toString())
+                notBeforeSeparator.includes(
+                  tokenizedString[idx - 1]!.toString()
+                )
               ) {
                 throw separatorErrorMessage(idx);
               }
               if (
-                notAfterColon.includes(tokenizedString[idx + 1]!.toString())
+                notAfterSeparator.includes(tokenizedString[idx + 1]!.toString())
               ) {
                 throw separatorErrorMessage(idx);
               }
+              break;
             case "colon":
               if (typeof tokenizedString[idx - 1] !== "string") {
                 throw colonKeyErrorMessage(idx);

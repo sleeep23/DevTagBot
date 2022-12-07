@@ -2,7 +2,9 @@ import express from "express";
 import cors from "cors";
 import surfitScrape from "./scrapping/surfit-scrape";
 import { createServer } from "http";
-import { parser } from "./jsonParser/parser";
+// import { parser } from "./jsonParser/parser";
+const nearley = require("nearley");
+import { default as grammar } from "../src/jsonParser/grammar";
 
 const app = express();
 const server = createServer(app);
@@ -19,14 +21,31 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.post("/", (req, res) => {
-  let input: string = req.body.input;
-  res.send(parser.feed(input));
-  // const tag = req.query.tag as string;
-  // surfitScrape(tag).then((result) => {
-  //   res.send(JSON.stringify(result));
-  // });
+app.get("/", (req, res) => {
+  const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
+  res.send(parser.feed(`[true,"hello"]`).results);
 });
+
+app.get("/tag", (req, res) => {
+  const tag = req.query.tag as string;
+  surfitScrape(tag).then((result) => {
+    res.send(JSON.stringify(result));
+  });
+});
+
+app.post("/", (req, res) => {
+  console.log(req.body.input);
+  const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
+  try {
+    res.send(parser.feed(req.body.input).results);
+  } catch (parseError: any) {
+    res
+      .status(400)
+      .send(SyntaxError("Error at character " + parseError.offset));
+  }
+});
+
+// console.log(parser.feed("[true]"));
 
 server.listen(port, () => {
   console.log("Server listening on port " + port);

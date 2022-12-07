@@ -19,6 +19,12 @@ let lexer = moo.compile({
 
 %}
 
+@{%
+function extractPair(kv, output) {
+    if(kv[0]) { output[kv[0]] = kv[1]; }
+}
+%}
+
 @lexer lexer
 
 json -> _ (object | array) _ {% function(d) { return d[1][0]; } %}
@@ -26,34 +32,7 @@ json -> _ (object | array) _ {% function(d) { return d[1][0]; } %}
 object -> "{" _ "}" {% function(d) { return {}; } %}
     | "{" _ pair (_ "," _ pair):* _ "}" {% extractObject %}
 
-array -> "[" _ "]" {% function(d) { return []; } %}
-    | "[" _ value (_ "," _ value):* _ "]" {% extractArray %}
-
-value ->
-      object {% id %}
-    | array {% id %}
-    | number {% id %}
-    | string {% id %}
-    | "true" {% function(d) { return true; } %}
-    | "false" {% function(d) { return false; } %}
-    | "null" {% function(d) { return null; } %}
-
-number -> %number {% function(d) { return parseFloat(d[0].value) } %}
-
-string -> %string {% function(d) { return JSON.parse(d[0].value) } %}
-
-pair -> key _ ":" _ value {% function(d) { return [d[0], d[4]]; } %}
-
-key -> string {% id %}
-
-_ -> null | %space {% function(d) { return null; } %}
-
 @{%
-
-function extractPair(kv, output) {
-    if(kv[0]) { output[kv[0]] = kv[1]; }
-}
-
 function extractObject(d) {
     let output = {};
 
@@ -65,7 +44,12 @@ function extractObject(d) {
 
     return output;
 }
+%}
 
+array -> "[" _ "]" {% function(d) { return []; } %}
+    | "[" _ value (_ "," _ value):* _ "]" {% extractArray %}
+
+@{%
 function extractArray(d) {
     let output = [d[2]];
 
@@ -75,5 +59,23 @@ function extractArray(d) {
 
     return output;
 }
-
 %}
+
+value ->
+      object {% id %}
+    | array {% id %}
+    | number {% id %}
+    | string {% id %}
+    | "true" {% function(d) { return true; } %}
+    | "false" {% function(d) { return false; } %}
+    | "null" {% function(d) { return null; } %}
+
+number -> %number {% (d) => parseFloat(d[0].value) %}
+
+string -> %string {% (d) => JSON.parse(d[0].value) %}
+
+pair -> key _ ":" _ value {% (d) => [d[0], d[4]] %}
+
+key -> string {% id %}
+
+_ -> null | %space {% () => null %}
