@@ -104,5 +104,6 @@ export default function Tokenize(
       throw syntaxErrorMessage(cntIndex);
     }
   }
+  console.log("No Problem in Tokenizing!");
   return result;
 }

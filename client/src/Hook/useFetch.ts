@@ -3,9 +3,6 @@ import { ContentProps } from "../Types/ContentType";
 import LexicalAnalyze from "../util/JSON-validating/LexicalAnalysis/LexicalAnalyze";
 import Tokenize from "../util/JSON-validating/Tokenizing/Tokenize";
 
-// import nearley from "nearley";
-// import { default as grammar } from "../util/jsonParser/grammar.js";
-
 export default function useFetch(url: string) {
   const [data, setData] = useState<Array<ContentProps>>([]);
   useEffect(() => {

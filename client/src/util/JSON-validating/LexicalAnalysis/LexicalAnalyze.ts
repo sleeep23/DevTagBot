@@ -143,5 +143,6 @@ export default function LexicalAnalyze(
   if (objectDepth !== 0) throw objectDepthErrorMessage();
   // "이 짝수 개인지 확인, 열리고 닫히는 것 까지 확인 X
   // if (!stringBalance) throw quoteErrorMessage();
+  console.log("No Problem in Lexical Analysis!");
   return result;
 }
